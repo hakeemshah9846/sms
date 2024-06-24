@@ -1,9 +1,9 @@
-
+import Login from "./Components/authComponents/Login/Login"
 
 function App() {
   return (
     <>
-    <h1>Student Management System</h1>
+    <Login />
     </>
   )
 }
