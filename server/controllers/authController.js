@@ -22,7 +22,7 @@ exports.login = async function (req, res) {
       .populate("user_type");
 
       if(!user) {
-        let response = error_function({"status" : 400, "message" : "Email invalid"});
+        let response = error_function({"status" : 400, "message" : "User not found"});
         res.status(response.statusCode).send(response);
         return;
       }

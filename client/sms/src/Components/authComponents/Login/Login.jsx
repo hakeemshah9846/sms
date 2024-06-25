@@ -1,10 +1,13 @@
 import axios from "axios";
 import requestUrls from "../../../utils/requestUrls";
 import { useState } from "react";
+import loginValidation from "../../../Validations/loginValidation";
 
 export default function Login() {
 
-    const [message, setMessage] = useState('');
+  const [message, setMessage] = useState('');
+  const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
 
     const handleClick = async function (e) {
         e.preventDefault();
@@ -12,6 +15,25 @@ export default function Login() {
         console.log("email : ", email);
         let password = e.target.password.value;
         console.log("password : ", password);
+
+        //Validations
+        let errs = loginValidation({email, password});
+        console.log("errs : ", errs);
+
+        if(errs.email) {
+          setEmailError(errs.email);
+          return;
+        }else {
+          setEmailError('');
+        }
+
+        if(errs.password) {
+          setPasswordError(errs.password);
+          return;
+        }else {
+          setPasswordError('');
+        }
+
         console.log("url : ", requestUrls.development);
         axios.post(requestUrls.development + "/login", {
             email,
@@ -41,11 +63,6 @@ export default function Login() {
       <>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img
-              className="mx-auto h-10 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-              alt="Your Company"
-            />
             <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
               Sign in to your account
             </h2>
@@ -67,6 +84,7 @@ export default function Login() {
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
+                <div style={{color : 'red',fontSize : '20px', textAlign : 'center'}}>{emailError}</div>
               </div>
   
               <div>
@@ -90,6 +108,7 @@ export default function Login() {
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
+                <div style={{color : 'red',fontSize : '20px', textAlign : 'center'}}>{passwordError}</div>
               </div>
   
               <div>
@@ -102,13 +121,6 @@ export default function Login() {
                 <div className="message" style={{color : "red",textAlign : 'center',fontSize : '20px'}} >{message}</div>
               </div>
             </form>
-  
-            <p className="mt-10 text-center text-sm text-gray-500">
-              Not a member?{' '}
-              <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                Start a 14 day free trial
-              </a>
-            </p>
           </div>
         </div>
       </>
