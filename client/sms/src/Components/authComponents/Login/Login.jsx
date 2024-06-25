@@ -43,7 +43,9 @@ export default function Login() {
 
             if(response.data.success) {
                 let token = response.data.data;
-                localStorage.setItem("token", token);
+                let user_type = response.data.user_type;
+                localStorage.setItem("token" , token);
+                localStorage.setItem("user_type", user_type);
                 setMessage('');
                 alert(response.data.message);
                 return;

@@ -7,6 +7,7 @@ const revokeManager = require('../managers/revokeManager');
 const sendEmail = require("../utils/send-email").sendEmail;
 const resetPassword = require("../utils/email-templates/resetPassword").resetPassword;
 const accessControl = require("../db/models/revoked_tokens");
+const loginValidation = require('../validations/loginValidation');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -14,6 +15,45 @@ exports.login = async function (req, res) {
   try {
     let email = req.body.email;
     let password = req.body.password;
+
+    //Validations
+    if(!email) {
+      let response = error_function({
+        statusCode : 400,
+        message : "Email is required",
+      });
+      res.status(response.statusCode).send(response);
+      return;
+    }
+
+    if(!password) {
+      let response = error_function({
+        statusCode : 400,
+        message : "Password is required",
+      });
+      res.status(response.statusCode).send(response);
+      return;
+    }
+
+    let errs = loginValidation(req.body);
+
+    if(errs.email) {
+      let response = error_function({
+        statusCode : 400,
+        message : "Invalid email",
+      });
+      res.status(response.statusCode).send(response);
+      return;
+    }
+
+    if(errs.password) {
+      let response = error_function({
+        statusCode : 400,
+        message : "Invalid password",
+      });
+      res.status(response.statusCode).send(response);
+      return;
+    }
 
     if (email && password) {
       let user = await users.findOne({
