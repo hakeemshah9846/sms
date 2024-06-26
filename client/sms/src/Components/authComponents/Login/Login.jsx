@@ -2,7 +2,6 @@ import axios from "axios";
 import requestUrls from "../../../utils/requestUrls";
 import { useState } from "react";
 import loginValidation from "../../../Validations/loginValidation";
-import {redirect} from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -39,7 +38,7 @@ export default function Login() {
           setPasswordError('');
         }
 
-        console.log("url : ", requestUrls.development);
+        console.log("url : ", requestUrls.SERVER_URL);
         axios.post(requestUrls.development + "/login", {
             email,
             password,

@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import ErrorPage from './Components/errorComponents/ErrorPage.jsx'
-import AdminDashboard from './Components/dashBoardComponents/AdminDashboard.jsx'
+// import AdminDashboard from './Components/dashBoardComponents/AdminDashboard.jsx'
+import AddFaculty from './Components/AdminComponents/AddFaculty.jsx'
 import FacultyDashboard from './Components/dashBoardComponents/FacultyDashboard.jsx'
 import StudentDashboard from './Components/dashBoardComponents/StudentDashboard.jsx'
 
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
   },
   {
     path : '/admin',
-    element : <AdminDashboard />
+    element : <AddFaculty />
   },
   {
     path : '/faculty',
