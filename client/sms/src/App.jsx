@@ -1,5 +1,4 @@
-import Login from "./Components/authComponents/Login/Login"
-import ErrorPage from "./Components/errorComponents/ErrorPage"
+import Login from "./Components/authComponents/Login/Login";
 
 function App() {
   return (
