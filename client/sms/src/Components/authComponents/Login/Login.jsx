@@ -2,15 +2,20 @@ import axios from "axios";
 import requestUrls from "../../../utils/requestUrls";
 import { useState } from "react";
 import loginValidation from "../../../Validations/loginValidation";
+import {useNavigate} from 'react-router-dom';
+import { redirect } from "react-router-dom";
 
 export default function Login() {
 
   const [message, setMessage] = useState('');
   const [emailError, setEmailError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  // const navigate = useNavigate();
+
 
     const handleClick = async function (e) {
         e.preventDefault();
+
         let email = e.target.email.value;
         console.log("email : ", email);
         let password = e.target.password.value;
@@ -47,8 +52,20 @@ export default function Login() {
                 localStorage.setItem("token" , token);
                 localStorage.setItem("user_type", user_type);
                 setMessage('');
-                alert(response.data.message);
-                return;
+                if(user_type === 'admin') {
+                  // navigate('/admin');
+                  redirect('/admin');
+                  return;
+                }else if(user_type === 'faculty') {
+                  // navigate('/faculty');
+                  redirect('/faculty')
+                  return;
+                }else {
+                  redirect('/student');
+                  // navigate('/student');
+                  return;
+                }
+                // alert(response.data.message);
             }else {
                 setMessage(response.data.message);
                 return;
