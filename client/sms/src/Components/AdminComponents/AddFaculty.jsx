@@ -4,35 +4,29 @@ import facultyValidation from "../../Validations/facultyValidation";
 export default function AddFaculty() {
 
     const [validationError, setValidationError] = useState({
-        first_name : '',
-        last_name : '',
-        phone : '',
-        email : '',
-        gender : '',
-        role : '',
+        first_name: null,
+        last_name: null,
+        phone: '',
+        email: '',
+        gender: '',
+        role: '',
     });
-    
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         let first_name = e.target.first_name.value;
-        console.log("first_name : ", first_name);
 
         let last_name = e.target.last_name.value;
-        console.log("last_name : ", last_name);
 
         let phone = e.target.phone.value;
-        console.log("phone : ", phone);
 
         let email = e.target.email.value;
-        console.log("email : ", email);
 
         let gender = e.target.gender.value;
-        console.log("gender : ", gender);
 
         let role = e.target.role.value;
-        console.log("role : ", role);
 
         let data = {
             first_name,
@@ -43,12 +37,90 @@ export default function AddFaculty() {
             role,
         }
 
-        console.log("data : ", data);
-
         let errs = facultyValidation(data);
 
-        if(errs.first_name) {
+        if (errs.first_name) {
+            setValidationError((obj) => {
+                obj = {
+                    ...validationError,
+                    first_name: errs.first_name
+                }
+                return obj;
+            });
+        } else {
+            setValidationError((obj) => {
+                obj = {
+                    ...validationError,
+                    first_name: '',
+                }
+                return obj;
+            });
+        }
 
+        if (errs.last_name) {
+            setValidationError((obj) => {
+                obj = {
+                    ...validationError,
+                    last_name : errs.last_name,
+                }
+                return obj;
+            });
+        } else {
+            setValidationError((obj) =>{
+                obj = {
+                    ...validationError,
+                    last_name : '',
+                }
+                return obj;
+            });
+        }
+
+        if (errs.phone) {
+            setValidationError({
+                ...validationError,
+                phone: errs.phone,
+            })
+        } else {
+            setValidationError({
+                ...validationError,
+                phone: '',
+            })
+        }
+
+        if (errs.email) {
+            setValidationError({
+                ...validationError,
+                email: errs.email,
+            })
+        } else {
+            setValidationError({
+                ...validationError,
+                email: '',
+            })
+        }
+
+        if (errs.gender) {
+            setValidationError({
+                ...validationError,
+                gender: errs.gender,
+            })
+        } else {
+            setValidationError({
+                ...validationError,
+                gender: '',
+            })
+        }
+
+        if (errs.role) {
+            setValidationError({
+                ...validationError,
+                role: errs.role,
+            })
+        } else {
+            setValidationError({
+                ...validationError,
+                role: '',
+            })
         }
     }
     return (
@@ -81,7 +153,7 @@ export default function AddFaculty() {
                                     placeholder="John"
                                     required=""
                                 />
-                                <div style={{fontSize : '20px', color : 'red'}}></div>
+                                <div style={{ fontSize: '20px', color: 'red' }}>{validationError.first_name ? validationError.first_name : ''}</div>
                             </div>
                             <div>
                                 <label
@@ -98,6 +170,8 @@ export default function AddFaculty() {
                                     placeholder="Doe"
                                     required=""
                                 />
+                                <div style={{ fontSize: '20px', color: 'red' }}>{validationError.last_name ? validationError.last_name : ''}</div>
+
                             </div>
                             <div>
                                 <label
@@ -114,6 +188,7 @@ export default function AddFaculty() {
                                     placeholder="9875489215"
                                     required=""
                                 />
+                                <div style={{ fontSize: '20px', color: 'red' }}>{validationError.phone ? validationError.phone : ''}</div>
                             </div>
                             <div>
                                 <label
@@ -130,6 +205,7 @@ export default function AddFaculty() {
                                     placeholder="name@company.com"
                                     required=""
                                 />
+                                <div style={{ fontSize: '20px', color: 'red' }}>{validationError.email ? validationError.email : ''}</div>
                             </div>
                             <div className="flex">
                                 <div className="male flex mx-8">
@@ -157,6 +233,7 @@ export default function AddFaculty() {
                                     />
                                 </div>
                             </div>
+                            <div style={{ fontSize: '20px', color: 'red' }}>{validationError.gender ? validationError.gender : ''}</div>
                             <div>
                                 <label
                                     htmlFor="role"
@@ -175,6 +252,7 @@ export default function AddFaculty() {
                                     <option value="python">Python</option>
                                     <option value="flutter">Flutter</option>
                                 </select>
+                                <div style={{ fontSize: '20px', color: 'red' }}>{validationError.role ? validationError.role : ''}</div>
                             </div>
                             <div>
                                 <button className="bg-sky-500/100 p-3 rounded-lg">Submit</button>

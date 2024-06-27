@@ -50,6 +50,10 @@ export default function(data) {
             errs.role = "Role is required";
         }
 
+        if(data.role === 'none') {
+            errs.role = "Role is required";
+        }
+
         let emailRegex = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
         let emailValid = emailRegex.test(data.email);
 
