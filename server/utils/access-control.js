@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const authController = require("../controllers/authController");
+const revokeManager = require('../managers/revokeManager');
 const error_function = require("./response-handler").error_function;
 const control_data = require("./control-data.json");
 const users = require("../db/models/users");
@@ -50,9 +51,10 @@ exports.accessControl = async function (access_types, req, res, next) {
 
               if (allowed && allowed.includes(user_type)) {
                 //checking if the token is in revoked list
-                let revoked = await authController.checkRevoked(req, res);
+                let revoked = await revokeManager.checkRevoked(token);
                 if (revoked === false) {
                   //token not in revoked list
+                  req.body.login_user_type = user_type;
                   next();
                 } else if (revoked === true) {
                   //token is in revoked list

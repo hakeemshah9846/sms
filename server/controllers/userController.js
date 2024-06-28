@@ -29,23 +29,37 @@ exports.addUser = async function(req, res) {
         const role = req.body.role;
         console.log("role : ", role);
 
-        jwt.verify(token, process.env.PRIVATE_KEY, async function(err, decoded) {
-            if(err) {
-                let response = error_function({
-                    statusCode : 400,
-                    message : err.message,
-                });
+        const login_user_type = req.body.login_user_type;
+        console.log("login_user_type : ", login_user_type);
 
-                return res.status(response.statusCode).send(response);
-            }else {
-                let user = await users.findOne({_id : decoded.user_id}).populate("user_type");
-                if(user.user_type.user_type === 'admin') {
-                    console.log("User is admin...");
-                }
-                console.log("user : ", user);
-            }
-        })
+        let user_type;
 
+        if(login_user_type === 'admin') {
+            user_type = "645e34807483b6558146f844";
+        }else if(login_user_type === 'faculty') {
+            user_type = "645e348b7483b6558146f845";
+        }else {
+            let response = error_function({
+                statusCode : 400,
+                message : "Not allowed",
+            });
+            res.status(response.statusCode).send(response);
+            return;
+        }
+
+        let new_user = await users.insertOne({
+            first_name,
+            last_name,
+            phone,
+            email,
+            gender,
+            role,
+            user_type,
+        });
+
+        if(user) {
+            
+        }
 
     } catch (error) {
         

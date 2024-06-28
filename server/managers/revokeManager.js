@@ -8,18 +8,18 @@ exports.revoke = async function (token) {
             }
             else {
                 //console.log("Reached here ...");
-                let saveToken = await accessControl.findOneAndUpdate({ token: token }, { token: token }, { upsert: true, new : true },
-                //     function (err, data) {
-                //     if (err) reject({ "status": 400, "message": "Logout Failed" });
-                //     resolve({ "status": 200, "message": "Logout Successful" });
-                // }
-                
+                let saveToken = await accessControl.findOneAndUpdate({ token: token }, { token: token }, { upsert: true, new: true },
+                    //     function (err, data) {
+                    //     if (err) reject({ "status": 400, "message": "Logout Failed" });
+                    //     resolve({ "status": 200, "message": "Logout Successful" });
+                    // }
+
                 );
 
-                if(saveToken) {
+                if (saveToken) {
 
-                    resolve({"status" : 200, "message" : "Logout successful"});
-                }else {
+                    resolve({ "status": 200, "message": "Logout successful" });
+                } else {
                     reject({ "status": 400, "message": "Logout Failed" });
                 }
             }
@@ -35,12 +35,22 @@ exports.checkRevoked = function (token) {
     return new Promise(async (resolve, reject) => {
         try {
             let revoked = await accessControl.findOne({ token: token });
-            if (revoked) resolve(true);
-            resolve(false);
+            if (revoked){
+                resolve(true);
+                return;
+            }else {
+                resolve(false);
+                return;
+            }
         }
         catch (error) {
-            if (process.env.NODE_ENV == "production") reject({ "status": 400, "message": error ? (error.message ? error.message : error) : "Something went wrong" });
-            else reject({ "status": 400, "message": error });
+            if (process.env.NODE_ENV == "production") { 
+                reject({ "status": 400, "message": error ? (error.message ? error.message : error) : "Something went wrong" });
+                return;
+            }else {
+                reject({ "status": 400, "message": error.message });
+                return;
+            }
         }
     })
 };
