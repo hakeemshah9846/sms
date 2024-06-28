@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require('./db/config');
 const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 
 app.use(bodyParser.json({ limit: '100mb' }));
@@ -25,6 +26,9 @@ app.listen(process.env.NODE_PORT, () => {
 
 //authentication routes
 app.use(authRoutes);
+
+//user routes
+app.use(userRoutes);
 
 // Zoho call back route
 app.get('/auth/zoho/callback/:organization_id', (req, res) => {

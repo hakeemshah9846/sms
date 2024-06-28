@@ -42,7 +42,7 @@ export default function(data) {
             errs.gender = "Gender is required";
         }
 
-        if(data.gender !== "male" || data.gender !== "female") {
+        if(data.gender != "male" && data.gender != "female") {
             errs.gender = "Invalid gender";
         }
 

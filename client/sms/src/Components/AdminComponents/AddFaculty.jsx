@@ -41,85 +41,109 @@ export default function AddFaculty() {
 
         if (errs.first_name) {
             setValidationError((obj) => {
-                obj = {
-                    ...validationError,
+                let obj1 = {
+                    ...obj,
                     first_name: errs.first_name
                 }
-                return obj;
+                return obj1;
             });
         } else {
             setValidationError((obj) => {
-                obj = {
-                    ...validationError,
+               let obj1 = {
+                    ...obj,
                     first_name: '',
                 }
-                return obj;
+                return obj1;
             });
         }
 
         if (errs.last_name) {
             setValidationError((obj) => {
-                obj = {
-                    ...validationError,
+                let obj1 = {
+                    ...obj,
                     last_name : errs.last_name,
                 }
-                return obj;
+                return obj1;
             });
         } else {
             setValidationError((obj) =>{
-                obj = {
-                    ...validationError,
+                let obj1 = {
+                    ...obj,
                     last_name : '',
                 }
-                return obj;
+                return obj1;
             });
         }
 
         if (errs.phone) {
-            setValidationError({
-                ...validationError,
-                phone: errs.phone,
+            setValidationError((obj) => {
+                let obj1 = {
+                    ...obj,
+                    phone : errs.phone,
+                }
+                return obj1;
             })
         } else {
-            setValidationError({
-                ...validationError,
-                phone: '',
+            setValidationError((obj) => {
+                let obj1 = {
+                    ...obj,
+                    phone : '',
+                }
+                return obj1;
             })
         }
 
         if (errs.email) {
-            setValidationError({
-                ...validationError,
-                email: errs.email,
+            setValidationError((obj) => {
+                let obj1 = {
+                    ...obj,
+                    email : errs.email,
+                }
+                return obj1;
             })
         } else {
-            setValidationError({
-                ...validationError,
-                email: '',
+            setValidationError((obj) => {
+                let obj1 = {
+                    ...obj,
+                    email : '',
+                }
+                return obj1;
             })
         }
 
         if (errs.gender) {
-            setValidationError({
-                ...validationError,
-                gender: errs.gender,
+            setValidationError((obj) => {
+                let obj1 = {
+                    ...obj,
+                    gender : errs.gender,
+                }
+                return obj1;
             })
         } else {
-            setValidationError({
-                ...validationError,
-                gender: '',
+            setValidationError((obj) => {
+              let  obj1 = {
+                    ...obj,
+                    gender : '',
+                }
+                return obj1;
             })
         }
 
         if (errs.role) {
-            setValidationError({
-                ...validationError,
-                role: errs.role,
+            setValidationError((obj) => {
+               let obj1 = {
+                    ...obj,
+                    role : errs.role,
+                }
+                return obj1;
             })
         } else {
-            setValidationError({
-                ...validationError,
-                role: '',
+            setValidationError((obj) => {
+                let obj1 = {
+                    ...obj,
+                    role : '',
+                }
+                return obj1;
             })
         }
     }
