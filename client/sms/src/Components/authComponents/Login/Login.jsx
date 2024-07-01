@@ -39,7 +39,7 @@ export default function Login() {
         }
 
         console.log("url : ", requestUrls.SERVER_URL);
-        axios.post(requestUrls.development + "/login", {
+        axios.post(requestUrls.SERVER_URL + "/login", {
             email,
             password,
         })

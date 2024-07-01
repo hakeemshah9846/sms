@@ -47,7 +47,7 @@ exports.addUser = async function(req, res) {
             return;
         }
 
-        let new_user = await users.insertOne({
+        let new_user = await new users({
             first_name,
             last_name,
             phone,
@@ -55,13 +55,29 @@ exports.addUser = async function(req, res) {
             gender,
             role,
             user_type,
-        });
+        }).save();
 
-        if(user) {
-            
+        if(new_user) {
+            let response = success_function({
+                statusCode : 201,
+                message : "User created successfully",
+            });
+
+            return res.status(response.statusCode).send(response);
+        }else {
+            let response = error_function({
+                statusCode : 400,
+                message : "User not created",
+            });
+            return res.status(response.statusCode).send(response);
         }
 
     } catch (error) {
-        
+        console.log("error : ", error);
+        let response = error_function({
+            statusCode : 400,
+            message : "Something went wrong",
+        });
+        return res.status(response.statusCode).send(response);
     }
 }

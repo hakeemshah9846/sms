@@ -7,6 +7,9 @@ import ErrorPage from './Components/errorComponents/ErrorPage.jsx'
 import AddFaculty from './Components/AdminComponents/AddFaculty.jsx'
 import FacultyDashboard from './Components/dashBoardComponents/FacultyDashboard.jsx'
 import StudentDashboard from './Components/dashBoardComponents/StudentDashboard.jsx'
+import AdminNav from './Components/AdminComponents/AdminNav.jsx'
+import GetFaculty from './Components/AdminComponents/GetFaculty.jsx'
+import NotAuthorized from './Components/errorComponents/NotAuthorized.jsx'
 
 const router = createBrowserRouter([
   {
@@ -15,8 +18,22 @@ const router = createBrowserRouter([
     errorElement : <ErrorPage />,
   },
   {
+    path : '/auth-error',
+    element : <NotAuthorized />
+  },
+  {
     path : '/admin',
-    element : <AddFaculty />
+    element : <AdminNav />,
+    children : [
+      {
+        path : 'users/add',
+        element : <AddFaculty />,
+      },
+      {
+        path : 'users/get',
+        element : <GetFaculty/>,
+      }
+    ]
   },
   {
     path : '/faculty',

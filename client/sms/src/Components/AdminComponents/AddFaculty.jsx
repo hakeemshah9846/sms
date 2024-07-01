@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import facultyValidation from "../../Validations/facultyValidation";
+import {useNavigate} from 'react-router-dom';
 
 export default function AddFaculty() {
 
@@ -12,9 +13,28 @@ export default function AddFaculty() {
         role: '',
     });
 
+    useEffect(() => {
+        const navigate = useNavigate();
+        //Validation for authorization
+        let token = localStorage.getItem('token');
+        console.log("token : ", token);
+
+        let user_type = localStorage.getItem('user_type');
+        console.log("user_type : ", user_type);
+
+        if (!token || !user_type) {
+            navigate('/auth-error');
+        }
+
+    }, [])
+    
+
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
 
         let first_name = e.target.first_name.value;
 
