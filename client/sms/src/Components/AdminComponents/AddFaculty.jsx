@@ -13,8 +13,9 @@ export default function AddFaculty() {
         role: '',
     });
 
+    const navigate = useNavigate();
+
     useEffect(() => {
-        const navigate = useNavigate();
         //Validation for authorization
         let token = localStorage.getItem('token');
         console.log("token : ", token);
@@ -26,7 +27,7 @@ export default function AddFaculty() {
             navigate('/auth-error');
         }
 
-    }, [])
+    }, []);
     
 
 

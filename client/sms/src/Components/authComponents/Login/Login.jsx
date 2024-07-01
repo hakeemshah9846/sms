@@ -53,7 +53,7 @@ export default function Login() {
                 localStorage.setItem("user_type", user_type);
                 setMessage('');
                 if(user_type === 'admin') {
-                  navigate('/admin');
+                  navigate('/admin/users/get');
                   return;
                 }else if(user_type === 'faculty') {
                   navigate('/faculty');
